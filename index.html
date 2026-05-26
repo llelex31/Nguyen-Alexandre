@@ -198,7 +198,44 @@ footer span { color: var(--lime); }
   .st-entreprise-info { grid-template-columns: 1fr; }
   .contact-info-grid { grid-template-columns: 1fr; }
 }
-/* ─── BOUTONS DOCUMENTS ─── */
+/* ─── DÉTAILS PROJETS DÉPLIABLES ─── */
+.pr-toggle { margin-top: 0.75rem; }
+.pr-toggle-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 6px 14px; background: rgba(244,114,182,0.12); color: var(--pink2); border: 1.5px solid var(--pink2); border-radius: 3px; font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; cursor: pointer; transition: all 0.15s; }
+.pr-toggle-btn:hover { background: var(--pink2); color: #fff; }
+.pr-toggle-btn .arrow { transition: transform 0.2s; }
+.pr-toggle-btn.open .arrow { transform: rotate(180deg); }
+.pr-details { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1.5px dashed rgba(0,0,0,0.15); }
+.pr-details.open { display: block; }
+.pr-details-section { margin-bottom: 1rem; }
+.pr-details-title { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pink2); margin-bottom: 0.5rem; }
+.pr-details-section ul { list-style: none; display: flex; flex-direction: column; gap: 0.35rem; }
+.pr-details-section li { font-size: 0.92rem; color: var(--muted); padding-left: 16px; position: relative; line-height: 1.4; }
+.pr-details-section li::before { content: '→'; position: absolute; left: 0; color: var(--pink2); font-size: 0.75rem; top: 3px; }
+.pr-details-section li strong { color: var(--dark); }
+.pr-details-section li em { color: var(--pink2); font-style: italic; }
+.pr-details-section li code { font-family: 'Space Mono', monospace; font-size: 0.82rem; background: rgba(0,0,0,0.06); padding: 1px 6px; border-radius: 2px; color: var(--dark); }
+
+/* ─── RESSOURCES ─── */
+.res-intro { background: rgba(255,255,255,0.55); border: 2px solid var(--dark); border-radius: 6px; padding: 1.5rem 1.75rem; margin-bottom: 2rem; transition: transform .15s, box-shadow .15s; }
+.res-intro:hover { transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--dark); }
+.res-intro-text { font-size: 1rem; color: var(--muted); line-height: 1.55; }
+.res-intro-text strong { color: var(--dark); }
+.res-category { margin-bottom: 2.5rem; }
+.res-cat-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 0.05em; border-bottom: 2px solid var(--pink2); padding-bottom: 0.4rem; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.75rem; }
+.res-cat-title .icon { font-size: 1.5rem; }
+.res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1rem; }
+.res-card { background: rgba(255,255,255,0.55); backdrop-filter: blur(8px); border: 2px solid var(--dark); border-radius: 6px; padding: 1.25rem 1.4rem; transition: transform 0.15s, box-shadow 0.15s; display: flex; flex-direction: column; gap: 0.5rem; }
+.res-card:hover { transform: translate(-3px,-3px); box-shadow: 6px 6px 0 var(--dark); }
+.res-icon { font-size: 2rem; }
+.res-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.04em; color: var(--dark); line-height: 1.15; }
+.res-desc { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); line-height: 1.4; }
+.res-btns { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.res-btn { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; background: var(--dark); color: var(--lime); border: 2px solid var(--dark); border-radius: 3px; font-family: 'Space Mono', monospace; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; transition: all 0.15s; flex: 1; justify-content: center; }
+.res-btn:hover { background: var(--lime); color: var(--dark); }
+.res-btn.pink { background: var(--pink2); color: #fff; border-color: var(--pink2); }
+.res-btn.pink:hover { background: #fff; color: var(--pink2); border-color: var(--dark); }
+
+/* ─── BOUTONS DOCUMENTS (gardés pour compat) ─── */
 .doc-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1.5px dashed rgba(0,0,0,0.15); }
 .doc-btn { display: inline-flex; align-items: center; gap: 0.4rem; padding: 6px 12px; background: var(--dark); color: var(--lime); border: 2px solid var(--dark); border-radius: 3px; font-family: 'Space Mono', monospace; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.05em; text-decoration: none; transition: transform 0.15s, background 0.15s, color 0.15s; }
 .doc-btn:hover { background: var(--lime); color: var(--dark); transform: translate(-2px,-2px); box-shadow: 3px 3px 0 var(--dark); }
@@ -286,6 +323,7 @@ footer span { color: var(--lime); }
     <li><a onclick="showPage('projets')" id="nav-projets">Projets</a></li>
     <li><a onclick="showPage('stages')" id="nav-stages">Stages</a></li>
     <li><a onclick="showPage('veille')" id="nav-veille">Veille</a></li>
+    <li><a onclick="showPage('ressources')" id="nav-ressources">Ressources</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
   </ul>
 </nav>
@@ -529,36 +567,184 @@ footer span { color: var(--lime); }
         <div class="pr-banner" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0);">🌐<div class="pr-badge">RÉSEAU</div></div>
         <div class="pr-body">
           <div class="pr-title">Infrastructure réseau PME</div>
-          <div class="pr-desc">Conception et déploiement d'une infrastructure réseau simulée : VLANs, routage inter-VLAN, DHCP/DNS, pare-feu pfSense.</div>
-          <div class="pr-techs"><span class="pr-tech">Packet Tracer</span><span class="pr-tech">pfSense</span><span class="pr-tech">VLANs</span><span class="pr-tech">OSPF</span></div>
+          <div class="pr-desc">Conception et déploiement d'une infrastructure réseau simulée pour une PME fictive : VLANs, routage inter-VLAN, DHCP/DNS et pare-feu pfSense.</div>
+          <div class="pr-techs"><span class="pr-tech">Packet Tracer</span><span class="pr-tech">pfSense</span><span class="pr-tech">VLANs</span><span class="pr-tech">OSPF</span><span class="pr-tech">Cisco IOS</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Contexte de l'exercice</div>
+                <ul>
+                  <li>Exercice de classe simulant l'infrastructure réseau d'une <strong>PME fictive</strong> répartie sur plusieurs services (commercial, comptabilité, technique, direction).</li>
+                  <li>Objectif : concevoir le réseau de zéro sous <strong>Cisco Packet Tracer</strong>, en respectant les bonnes pratiques de segmentation et de sécurité.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Architecture mise en place</div>
+                <ul>
+                  <li><strong>Plan d'adressage IP</strong> rédigé en amont : choix du masque, calcul des sous-réseaux, attribution par service.</li>
+                  <li><strong>Segmentation VLAN</strong> (802.1Q) : un VLAN par service pour isoler les flux et limiter les broadcasts.</li>
+                  <li><strong>Routage inter-VLAN</strong> configuré sur un routeur Cisco avec sous-interfaces.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Services réseau déployés</div>
+                <ul>
+                  <li><strong>DHCP</strong> — attribution automatique des adresses IP par VLAN, avec étendues et exclusions configurées.</li>
+                  <li><strong>DNS</strong> — résolution de noms interne pour les serveurs et services de la PME.</li>
+                  <li><strong>Pare-feu pfSense</strong> — règles de filtrage entre les VLANs, autorisation des flux légitimes uniquement (principe du moindre privilège).</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Maîtriser la <strong>chaîne complète</strong> de conception d'un réseau d'entreprise : du plan d'adressage à la configuration des équipements.</li>
+                  <li>Comprendre l'intérêt de la <strong>segmentation par VLAN</strong> en termes de sécurité et de performance.</li>
+                  <li>Pratiquer la configuration <strong>Cisco IOS</strong> en ligne de commande (modes utilisateur, privilégié, configuration globale).</li>
+                  <li>Configurer un pare-feu pfSense avec des règles cohérentes vis-à-vis du besoin métier.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pr-card">
         <div class="pr-banner" style="background:linear-gradient(135deg,#f0ffd4,#d9f99d);">🖥️<div class="pr-badge">SYSTÈMES</div></div>
         <div class="pr-body">
           <div class="pr-title">Déploiement Active Directory</div>
-          <div class="pr-desc">Mise en place d'un domaine Windows Server 2019, gestion des utilisateurs, groupes, GPO et stratégies de sécurité.</div>
-          <div class="pr-techs"><span class="pr-tech">Windows Server</span><span class="pr-tech">AD</span><span class="pr-tech">GPO</span><span class="pr-tech">PowerShell</span></div>
+          <div class="pr-desc">Mise en place d'un domaine Windows Server 2019 pour une entreprise fictive : gestion des utilisateurs, groupes, GPO et stratégies de sécurité.</div>
+          <div class="pr-techs"><span class="pr-tech">Windows Server 2019</span><span class="pr-tech">Active Directory</span><span class="pr-tech">GPO</span><span class="pr-tech">PowerShell</span><span class="pr-tech">DNS</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Contexte de l'exercice</div>
+                <ul>
+                  <li>Exercice de classe sur une <strong>entreprise fictive</strong> simulant un parc d'environ <strong>15 postes</strong> répartis sur plusieurs services (commercial, technique, direction, ressources humaines).</li>
+                  <li>Objectif : centraliser l'administration des comptes utilisateurs et des stratégies de sécurité avec <strong>Active Directory</strong>.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Installation &amp; configuration</div>
+                <ul>
+                  <li>Installation de <strong>Windows Server 2019</strong> dans une machine virtuelle dédiée.</li>
+                  <li>Promotion du serveur en <strong>contrôleur de domaine</strong> avec création du domaine de l'entreprise fictive.</li>
+                  <li>Configuration du service <strong>DNS</strong> nécessaire au bon fonctionnement de l'AD.</li>
+                  <li>Jonction de postes Windows clients au domaine pour validation.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Gestion des comptes &amp; groupes</div>
+                <ul>
+                  <li>Création d'une <strong>arborescence d'unités d'organisation (OU)</strong> reflétant la structure de l'entreprise.</li>
+                  <li>Création des comptes utilisateurs et organisation en <strong>groupes par service</strong>.</li>
+                  <li>Définition des droits d'accès aux ressources partagées en fonction des groupes (principe du moindre privilège).</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Stratégies de groupe (GPO)</div>
+                <ul>
+                  <li>Mise en place de <strong>GPO</strong> appliquées au niveau du domaine et des unités d'organisation.</li>
+                  <li>Stratégies de mot de passe (complexité, durée de vie, historique).</li>
+                  <li>Verrouillage automatique des sessions et stratégies de sécurité applicables à tous les postes.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Découvrir l'outil de référence d'<strong>administration centralisée</strong> sous environnement Microsoft.</li>
+                  <li>Comprendre l'intérêt d'une gestion par <strong>groupes et GPO</strong> plutôt que poste par poste.</li>
+                  <li>Pratiquer la console <strong>Active Directory Users and Computers</strong> et la <strong>Group Policy Management Console</strong>.</li>
+                  <li>S'initier à l'automatisation système via <strong>PowerShell</strong>.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="pr-card">
         <div class="pr-banner" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">📊<div class="pr-badge">SUPERVISION</div></div>
         <div class="pr-body">
-          <div class="pr-title">Supervision réseau Zabbix</div>
-          <div class="pr-desc">Déploiement de Zabbix pour monitorer les équipements réseau, alertes et métriques de performance.</div>
-          <div class="pr-techs"><span class="pr-tech">Zabbix</span><span class="pr-tech">Linux</span><span class="pr-tech">SNMP</span><span class="pr-tech">Bash</span></div>
+          <div class="pr-title">Supervision réseau Zabbix &amp; Grafana</div>
+          <div class="pr-desc">Mise en place d'un système complet de supervision avec Zabbix 7.0 et Grafana sur Ubuntu Server 24.04, hébergé en DMZ (192.168.100.254).</div>
+          <div class="pr-techs"><span class="pr-tech">Zabbix 7.0</span><span class="pr-tech">Grafana</span><span class="pr-tech">SNMP v2c</span><span class="pr-tech">Ubuntu 24.04</span><span class="pr-tech">MySQL</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Le projet en bref</div>
+                <ul>
+                  <li>Solution déployée sur <strong>3 niveaux progressifs</strong> pour couvrir l'ensemble du réseau pédagogique : ligne internet, équipements actifs et postes de travail.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Niveaux supervisés</div>
+                <ul>
+                  <li><strong>Niveau 1 — Ligne internet :</strong> métriques de ping, latence, perte de paquets, CPU, RAM et bande passante. Dashboard Grafana avec rafraîchissement toutes les 10 secondes.</li>
+                  <li><strong>Niveau 2 — Switch D-Link :</strong> intégration SNMP v2c du commutateur de la salle SIO (192.168.1.243). Modèle <code>D-Link DES/DGS</code> appliqué pour suivre le trafic par port et la disponibilité des liens.</li>
+                  <li><strong>Niveau 3 — Postes &amp; services :</strong> agent Zabbix 7.0 installé sur un poste Windows avec <strong>171 métriques</strong> collectées. Contrôle du service HTTP via vérification TCP sur le port 443.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Mettre en place un service de <strong>supervision proactive</strong> au lieu d'une gestion réactive des incidents.</li>
+                  <li>Mobiliser le SNMP pour interroger des équipements <em>headless</em> sans agent installé.</li>
+                  <li>Construire des <strong>tableaux de bord lisibles</strong> pour l'équipe pédagogique via Grafana.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="pr-card">
         <div class="pr-banner" style="background:linear-gradient(135deg,#fff0f5,#fce4ec);">🎫<div class="pr-badge">SUPPORT IT</div></div>
         <div class="pr-body">
-          <div class="pr-title">Inventaire, agent automatique &amp; ticketing</div>
-          <div class="pr-desc">Mise en place d'une solution de gestion du parc avec inventaire automatique des postes et système de tickets pour le support utilisateurs.</div>
-          <div class="pr-techs"><span class="pr-tech">GLPI</span><span class="pr-tech">Agent</span><span class="pr-tech">Inventaire</span><span class="pr-tech">Helpdesk</span></div>
-          <div class="doc-buttons">
-            <a href="documents/nguyen_alexandre_glpi_acte_1.pdf" target="_blank" class="doc-btn"><span class="icon">📄</span> Acte 1 — GLPI</a>
-            <a href="documents/nguyen_alexandre_glpi_acte_2.pdf" target="_blank" class="doc-btn"><span class="icon">📄</span> Acte 2 — Agent</a>
+          <div class="pr-title">Mise en pratique de GLPI — Inventaire, agent automatique &amp; ticketing</div>
+          <div class="pr-desc">Trois activités pratiques menées en BTS SIO pour prendre en main GLPI, l'outil libre de gestion de parc informatique le plus utilisé en entreprise.</div>
+          <div class="pr-techs"><span class="pr-tech">GLPI</span><span class="pr-tech">Inventaire</span><span class="pr-tech">Agent GLPI</span><span class="pr-tech">Ticketing</span><span class="pr-tech">VirtualBox</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Acte 1 — Bases : créer son inventaire</div>
+                <ul>
+                  <li>Création de la base d'inventaire : ajout de <strong>2 lieux</strong> (Cugnaux, Toulouse), <strong>3 fabricants</strong> (Asus, Dell, HP) et <strong>3 statuts</strong> (En service, HS, Neuf).</li>
+                  <li>Géolocalisation des sites sur la carte de GLPI (initialement positionnés en plein milieu de l'océan, recadrés sur l'agglomération toulousaine).</li>
+                  <li>Filtrage des PC par lieu, fabricant et service via la recherche multi-critères.</li>
+                  <li>Création d'une fiche logiciel (Word de Microsoft, version 16.0) avec suivi des installations et des licences.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Acte 2 — Inventaire automatique via l'agent GLPI</div>
+                <ul>
+                  <li>Constat de départ : un inventaire manuel (Virtual Box 7.0.10, Visual Studio 1.96.2, Packet Tracer 8.2.2, Discord, Wamp 3.3.5) prend déjà ~30 min pour un seul PC — impossible à grande échelle.</li>
+                  <li>Configuration d'une <strong>redirection de ports</strong> dans VirtualBox (IP hôte vers IP invitée, port 9980 → 80) pour permettre à la VM de joindre le serveur GLPI.</li>
+                  <li>Modification du fichier <code>agent.cfg</code> pour pointer vers <code>http://192.168.1.186:9980/glpi/front/inventory.php</code>.</li>
+                  <li>Lancement de <code>glpi-agent.bat</code> et remontée automatique de l'inventaire : nom du logiciel, éditeur, version, nombre d'installations, nombre de licences. <strong>247 logiciels et 45 composants détectés</strong> sur un seul PC portable HP.</li>
+                  <li>Création de règles de filtrage (exemple : exclure Notepad++ des inventaires).</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Acte 3 — Tickets &amp; helpdesk</div>
+                <ul>
+                  <li>Définition d'un plan de nommage structuré : <code>LIEU-POSTE-NUMÉRO</code> (ex : <code>TL-MA-01</code> pour un poste Manager à Toulouse, <code>CU-VE-02</code> pour un poste Vendeur à Cugnaux).</li>
+                  <li>Création de tickets côté utilisateur : <em>« Blue screen 2 fois par jour »</em>, <em>« Manque d'internet depuis 3h »</em> — avec catégorisation (urgence, impact, priorité).</li>
+                  <li>Prise en charge côté technicien : suivi du ticket, demande de capture d'écran à l'utilisateur, transmission de la commande de réparation (<code>route delete 0.0.0.0</code> puis <code>route add 0.0.0.0 mask 0.0.0.0</code>).</li>
+                  <li>Validation par l'utilisateur, clôture du ticket et suivi statistique côté observateur (Sylvie / Dominique).</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Comprendre la logique complète d'un outil <strong>ITSM</strong> (Information Technology Service Management) du monde réel.</li>
+                  <li>Mesurer concrètement l'apport de l'automatisation (un agent vs 30 min manuelles par poste).</li>
+                  <li>Adopter une démarche de support utilisateur structurée : qualification, diagnostic, résolution, validation.</li>
+                  <li>Penser en amont un <strong>plan de nommage cohérent</strong>, indispensable pour s'y retrouver sur un parc de plusieurs centaines de postes.</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -566,18 +752,78 @@ footer span { color: var(--lime); }
       <div class="pr-card">
         <div class="pr-banner" style="background:linear-gradient(135deg,#fed7aa,#fb923c);">🛒<div class="pr-badge">E-COMMERCE</div></div>
         <div class="pr-body">
-          <div class="pr-title">Boutique Prestashop</div>
-          <div class="pr-desc">Création d'une boutique en ligne avec Prestashop : installation, configuration, personnalisation du thème, gestion du catalogue produits et des moyens de paiement.</div>
-          <div class="pr-techs"><span class="pr-tech">Prestashop</span><span class="pr-tech">PHP</span><span class="pr-tech">MySQL</span><span class="pr-tech">CSS</span></div>
+          <div class="pr-title">Boutique Prestashop — Prestigear</div>
+          <div class="pr-desc">Conception d'une boutique e-commerce fictive (Prestigear, voitures de luxe japonaises) sur Prestashop, avec cahier des charges, charte graphique et dossier de candidature.</div>
+          <div class="pr-techs"><span class="pr-tech">Prestashop</span><span class="pr-tech">PHP</span><span class="pr-tech">MySQL</span><span class="pr-tech">CSS</span><span class="pr-tech">SEO</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Déroulé du projet (4 séances)</div>
+                <ul>
+                  <li><strong>Séance 1</strong> — Rédaction du cahier des charges et choix d'un thème Prestashop gratuit adapté.</li>
+                  <li><strong>Séance 2</strong> — Élaboration de la charte graphique et constitution du dossier de candidature (présentation de l'équipe, choix techniques, devis, difficultés anticipées).</li>
+                  <li><strong>Séance 3</strong> — Mise en place de l'architecture du site, création des catégories et d'un premier produit par catégorie.</li>
+                  <li><strong>Séance 4</strong> — Enrichissement du catalogue avec de nouveaux produits et améliorations ergonomiques.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Présentation fictive de la société (livrable de candidature)</div>
+                <ul>
+                  <li>Équipe constituée : CEO &amp; cofondateur, directrice créative, responsable marketing &amp; partenariats, responsable production, service client.</li>
+                  <li>Domaines d'expertise affichés : conception &amp; design d'accessoires personnalisés, service client de qualité, innovation technologique.</li>
+                  <li>Devis détaillé séparant les prestations maquettage, design et marketing.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Référencement SEO étudié</div>
+                <ul>
+                  <li>Mise en place d'une <em>« machine à contenu »</em> : actualités, articles d'expertise, support / documentation, blog.</li>
+                  <li>Architecture cohérente avec linking interne (silos SEO) pour regrouper les contenus par thème.</li>
+                  <li>Étude des bonnes pratiques de structuration d'URL et de hiérarchie de pages.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Comprendre la <strong>chaîne complète</strong> d'un projet e-commerce : du cahier des charges à la mise en ligne.</li>
+                  <li>Configurer un CMS e-commerce (Prestashop) : back-office, catégories, fiches produits, thème.</li>
+                  <li>Travailler en équipe : partage des rôles, planning sur plusieurs séances, livrables intermédiaires.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="pr-card">
         <div class="pr-banner" style="background:linear-gradient(135deg,#fde68a,#fbbf24);">🍸<div class="pr-badge">WEB DESIGN</div></div>
         <div class="pr-body">
-          <div class="pr-title">Site web — Bar à thème</div>
-          <div class="pr-desc">Conception d'un site vitrine fictif pour un bar à thème : cahier des charges, charte graphique, maquette et intégration HTML/CSS responsive.</div>
-          <div class="pr-techs"><span class="pr-tech">HTML</span><span class="pr-tech">CSS</span><span class="pr-tech">Design</span><span class="pr-tech">Cahier des charges</span></div>
+          <div class="pr-title">Site web — Bar à thème « Les p'tites loutres »</div>
+          <div class="pr-desc">Conception d'un site vitrine fictif pour un bar à thème toulousain dédié à la sauvegarde des loutres, avec cahier des charges, charte graphique et intégration HTML/CSS.</div>
+          <div class="pr-techs"><span class="pr-tech">HTML</span><span class="pr-tech">CSS</span><span class="pr-tech">Charte graphique</span><span class="pr-tech">UX</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Structure du site</div>
+                <ul>
+                  <li><strong>Page d'accueil</strong> — présentation du bar avec logo, horaires d'ouverture (lundi-mercredi 18h-00h, jeudi 16h-02h, vendredi-samedi 15h-02h, dimanche fermé).</li>
+                  <li><strong>Concept du bar</strong> — page thématique : bar dansant à thème avec guinguettes, soirées déguisées, concerts et événements musicaux (techno, trance, groove, bounce).</li>
+                  <li><strong>Carte</strong> — tableau des cocktails (Jäger Bomb, Daiquiri, Cosmopolitan…) avec tarification classique <em>et</em> tarification Happy Hour.</li>
+                  <li><strong>Formulaire</strong> — page de contact avec champs nom, prénom, email et vérification de majorité par boutons radio.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Structurer un site multi-pages avec navigation cohérente.</li>
+                  <li>Séparer la structure (HTML) de la présentation (CSS) avec une feuille de style par page.</li>
+                  <li>Mettre en pratique les éléments sémantiques (<code>nav</code>, <code>table</code>, <code>form</code>, <code>fieldset</code>).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -637,12 +883,6 @@ footer span { color: var(--lime); }
             <span class="st-skill-tag" style="color:#3730a3;border-color:#a5b4fc;background:rgba(165,180,252,0.14)">Gestion des tickets</span>
             <span class="st-skill-tag" style="color:#3730a3;border-color:#a5b4fc;background:rgba(165,180,252,0.14)">Support utilisateurs</span>
             <span class="st-skill-tag" style="color:#3730a3;border-color:#a5b4fc;background:rgba(165,180,252,0.14)">Documentation technique</span>
-          </div>
-
-          <div class="st-section-title">📎 Documents</div>
-          <div class="doc-buttons" style="border-top:none; padding-top:0;">
-            <a href="documents/Rapport_de_stage_ACFM_NGUYEN_ALEXANDRE.pdf" target="_blank" class="doc-btn pink"><span class="icon">📄</span> Voir le rapport de stage</a>
-            <a href="documents/Rapport_de_stage_ACFM_NGUYEN_ALEXANDRE.pdf" download class="doc-btn"><span class="icon">⬇</span> Télécharger (PDF)</a>
           </div>
 
         </div>
@@ -710,12 +950,6 @@ footer span { color: var(--lime); }
             <span class="st-skill-tag" style="color:#3d6b00;border-color:#b8ff00;background:rgba(184,255,0,0.13)">Rédaction de devis</span>
             <span class="st-skill-tag" style="color:#3730a3;border-color:#a5b4fc;background:rgba(165,180,252,0.14)">Autonomie</span>
             <span class="st-skill-tag" style="color:#3730a3;border-color:#a5b4fc;background:rgba(165,180,252,0.14)">Travail en équipe</span>
-          </div>
-
-          <div class="st-section-title">📎 Documents</div>
-          <div class="doc-buttons" style="border-top:none; padding-top:0;">
-            <a href="documents/rapport_stage_vimexcom_.pdf" target="_blank" class="doc-btn pink"><span class="icon">📄</span> Voir le rapport de stage</a>
-            <a href="documents/rapport_stage_vimexcom_.pdf" download class="doc-btn"><span class="icon">⬇</span> Télécharger (PDF)</a>
           </div>
 
         </div>
@@ -898,17 +1132,124 @@ footer span { color: var(--lime); }
   <footer>© 2026 <span>ALEXANDRE NGUYEN</span> · BTS SIO SISR · Lycée Henri Matisse, Cugnaux</footer>
 </div>
 
+<!-- ===== RESSOURCES ===== -->
+<div class="page" id="page-ressources">
+  <div class="page-inner">
+    <div class="s-eye">// 07 · documents à télécharger</div>
+    <div class="s-title">MES <span class="out">RESSOURCES</span></div>
+
+    <div class="res-intro">
+      <div class="res-intro-text">
+        Retrouve ici tous les <strong>documents associés à mon parcours</strong> : CV, rapports de stages, dossiers de projets et chartes graphiques. Chaque document peut être <strong>consulté en ligne</strong> ou <strong>téléchargé en PDF</strong>.
+      </div>
+    </div>
+
+    <!-- CV -->
+    <div class="res-category">
+      <div class="res-cat-title"><span class="icon">📄</span> Mon CV</div>
+      <div class="res-grid">
+        <div class="res-card">
+          <div class="res-icon">📄</div>
+          <div class="res-title">CV — Alexandre Nguyen</div>
+          <div class="res-desc">Curriculum Vitae à jour, candidature Licence 3 — Informatique, Réseaux &amp; Télécommunications</div>
+          <div class="res-btns">
+            <a href="documents/CV_Nguyen_Alexandre.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RAPPORTS DE STAGE -->
+    <div class="res-category">
+      <div class="res-cat-title"><span class="icon">💼</span> Rapports de stages</div>
+      <div class="res-grid">
+        <div class="res-card">
+          <div class="res-icon">📑</div>
+          <div class="res-title">Rapport de stage — ACFM</div>
+          <div class="res-desc">Stage 1ère année (2025) à Saint-Orens — Technicien systèmes &amp; réseaux : parc, support, câblage, supervision</div>
+          <div class="res-btns">
+            <a href="documents/Rapport_de_stage_ACFM_NGUYEN_ALEXANDRE.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+        <div class="res-card">
+          <div class="res-icon">📑</div>
+          <div class="res-title">Rapport de stage — Vimexcom</div>
+          <div class="res-desc">Stage 2ème année (janv-fév 2026) à Toulouse — Réparation informatique &amp; multimédia : téléphones, PC, cartes graphiques</div>
+          <div class="res-btns">
+            <a href="documents/rapport_stage_vimexcom_.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOSSIERS PROJETS -->
+    <div class="res-category">
+      <div class="res-cat-title"><span class="icon">🚀</span> Dossiers de projets</div>
+      <div class="res-grid">
+        <div class="res-card">
+          <div class="res-icon">📊</div>
+          <div class="res-title">Supervision Zabbix &amp; Grafana</div>
+          <div class="res-desc">Dossier complet du projet de supervision réseau sur 3 niveaux — Architecture, configuration et dashboards</div>
+          <div class="res-btns">
+            <a href="documents/Supervision_Zabbix_Grafana.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+        <div class="res-card">
+          <div class="res-icon">🎫</div>
+          <div class="res-title">GLPI — Acte 1 (Bases &amp; inventaire)</div>
+          <div class="res-desc">Création de la base d'inventaire dans GLPI : lieux, fabricants, statuts, géolocalisation, fiche logiciel</div>
+          <div class="res-btns">
+            <a href="documents/nguyen_alexandre_glpi_acte_1.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+        <div class="res-card">
+          <div class="res-icon">🤖</div>
+          <div class="res-title">GLPI — Acte 2 (Agent automatique)</div>
+          <div class="res-desc">Mise en place de l'agent GLPI pour l'inventaire automatique des logiciels et composants — 247 logiciels détectés</div>
+          <div class="res-btns">
+            <a href="documents/nguyen_alexandre_glpi_acte_2.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHARTES GRAPHIQUES -->
+    <div class="res-category">
+      <div class="res-cat-title"><span class="icon">🎨</span> Chartes graphiques</div>
+      <div class="res-grid">
+        <div class="res-card">
+          <div class="res-icon">🍸</div>
+          <div class="res-title">Charte graphique — Les p'tites loutres</div>
+          <div class="res-desc">Bar à thème toulousain — Logo, déclinaisons, typographie, palette de couleurs vives et règles d'usage</div>
+          <div class="res-btns">
+            <a href="documents/Charte_graphgique_Les_p_tites_loutres.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+        <div class="res-card">
+          <div class="res-icon">🚗</div>
+          <div class="res-title">Charte graphique — Prestigear</div>
+          <div class="res-desc">Boutique e-commerce voitures de luxe japonaises — Logo, typographie Playfair Display, palette terre &amp; corail</div>
+          <div class="res-btns">
+            <a href="documents/Charte_graphique_site_prestashop_.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <footer>© 2026 <span>ALEXANDRE NGUYEN</span> · BTS SIO SISR · Lycée Henri Matisse, Cugnaux</footer>
+</div>
+
 <!-- ===== CONTACT ===== -->
 <div class="page" id="page-contact">
   <div class="page-inner">
-    <div class="s-eye">// 07 · restons en contact</div>
+    <div class="s-eye">// 08 · restons en contact</div>
     <div class="s-title">CONTACT<span class="out">EZ-MOI</span></div>
     <div class="contact-wrap">
       <div class="co-big">TRAVAILLONS<br><span class="pk">ENSEMBLE</span></div>
       <p class="co-sub">Pour de l'<span class="hl">alternance en administration réseau</span> ou <span class="hl">cybersécurité</span>, ou simplement pour échanger sur un projet — toutes les options ci-dessous.</p>
       <a href="mailto:alex.tri.nguyen@hotmail.com" class="co-email">alex.tri.nguyen@hotmail.com</a>
       <div class="co-links">
-        <a href="documents/CV_Nguyen_Alexandre.pdf" target="_blank" class="co-link">📄 Mon CV</a>
         <a href="https://llelex31.github.io/Nguyen-Alexandre/" target="_blank" class="co-link">🌐 Mon portfolio</a>
         <a href="https://www.linkedin.com/in/alexandre-nguyen-113bb832b" target="_blank" class="co-link">💼 LinkedIn</a>
         <a href="https://github.com/llelex31/Nguyen-Alexandre" target="_blank" class="co-link">🐙 GitHub</a>
@@ -934,8 +1275,8 @@ footer span { color: var(--lime); }
 <div class="page-indicator" id="dots"></div>
 
 <script>
-  const pages = ['accueil','about','parcours','skills','projets','stages','veille','contact'];
-  const labels = ['Accueil','À propos','Parcours','Compétences','Projets','Stages','Veille','Contact'];
+  const pages = ['accueil','about','parcours','skills','projets','stages','veille','ressources','contact'];
+  const labels = ['Accueil','À propos','Parcours','Compétences','Projets','Stages','Veille','Ressources','Contact'];
 
   const dotsEl = document.getElementById('dots');
   pages.forEach((p, i) => {
@@ -962,6 +1303,15 @@ footer span { color: var(--lime); }
     document.querySelectorAll('.st-tab').forEach(t => t.classList.remove('active'));
     document.getElementById('stage-' + name).classList.add('active');
     btn.classList.add('active');
+  }
+
+  function toggleDetails(btn) {
+    const details = btn.nextElementSibling;
+    const isOpen = details.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    const arrow = btn.querySelector('.arrow');
+    btn.innerHTML = (isOpen ? '📕 Masquer les détails ' : '📖 Lire les détails ') + '<span class="arrow">▼</span>';
+    if (isOpen) btn.classList.add('open');
   }
 </script>
 </body>
