@@ -381,7 +381,7 @@ footer span { color: var(--lime); }
       </div>
       <div class="about-stats">
         <div class="stat-c"><div class="stat-n">2</div><div class="stat-l">ANS DE FORMATION</div></div>
-        <div class="stat-c"><div class="stat-n">6</div><div class="stat-l">PROJETS RÉALISÉS</div></div>
+        <div class="stat-c"><div class="stat-n">7</div><div class="stat-l">PROJETS RÉALISÉS</div></div>
         <div class="stat-c"><div class="stat-n">2</div><div class="stat-l">STAGES EFFECTUÉS</div></div>
         <div class="stat-c"><div class="stat-n">2026</div><div class="stat-l">PROMOTION BTS</div></div>
       </div>
@@ -699,9 +699,71 @@ footer span { color: var(--lime); }
       </div>
 
       <div class="pr-card">
-        <div class="pr-banner" style="background:linear-gradient(135deg,#fff0f5,#fce4ec);">🎫<div class="pr-badge">SUPPORT IT</div></div>
+        <div class="pr-banner" style="background:linear-gradient(135deg,#dbeafe,#93c5fd);">🛡️<div class="pr-badge">PROXY · SÉCURITÉ</div></div>
         <div class="pr-body">
-          <div class="pr-title">Mise en pratique de GLPI — Inventaire, agent automatique &amp; ticketing</div>
+          <div class="pr-title">Service Proxy — Journalisation &amp; filtrage des accès</div>
+          <div class="pr-desc">Mise en place d'un proxy d'entreprise avec Squid &amp; SquidGuard pour journaliser les accès Internet (obligation légale) et filtrer les sites indésirables, sans reconfiguration des postes clients.</div>
+          <div class="pr-techs"><span class="pr-tech">Squid</span><span class="pr-tech">SquidGuard</span><span class="pr-tech">Ubuntu Server</span><span class="pr-tech">pfSense</span><span class="pr-tech">Proxmox</span><span class="pr-tech">Blacklists</span></div>
+          <div class="pr-toggle">
+            <button class="pr-toggle-btn" onclick="toggleDetails(this)">📖 Lire les détails <span class="arrow">▼</span></button>
+            <div class="pr-details">
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Contexte du projet</div>
+                <ul>
+                  <li>Une organisation souhaite mettre en place une <strong>journalisation des accès à Internet</strong> comme la loi l'y oblige en tant que fournisseur d'accès. Le dispositif ne doit pas impliquer une reconfiguration des postes de travail.</li>
+                  <li>Dans un 1er temps, seule la journalisation est mise en place, ainsi que le filtrage sur quelques sites jugés indésirables par la charte informatique (Facebook, YouTube, Instagram). <strong>(N1)</strong></li>
+                  <li>Dans un 2ème temps, le filtrage devient plus précis et permet la mise en place de <strong>listes noires (blacklists)</strong> que l'administration gère en concertation avec la Direction. <strong>(N2)</strong></li>
+                  <li>Enfin, pour des raisons de sécurité, le journal de connexion est déporté sur un <strong>serveur Syslog externe</strong> et les blacklists sont mises à jour quotidiennement. <strong>(N3)</strong></li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Architecture technique</div>
+                <ul>
+                  <li>Infrastructure virtualisée sur <strong>Proxmox</strong>, segmentée par <strong>pfSense</strong> en 3 zones :</li>
+                  <li><strong>WAN</strong> (192.168.1.0/24) — sortie Internet · <strong>LAN</strong> (192.168.2.0/24) — postes clients · <strong>DMZ</strong> (192.168.100.0/24) — serveur proxy.</li>
+                  <li>Serveur proxy <strong>Ubuntu Server</strong> en DMZ (192.168.100.100) avec Squid en proxy HTTP/HTTPS et SquidGuard pour le filtrage par blacklists.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Niveau 1 — Journalisation locale &amp; filtrage manuel ✓</div>
+                <ul>
+                  <li>Installation et configuration de <strong>Squid</strong> sur Ubuntu Server.</li>
+                  <li>Définition d'<code>acl</code> autorisant le LAN et bloquant les domaines Facebook, YouTube et Instagram.</li>
+                  <li>Point clé : l'<strong>ordre des règles est essentiel</strong> dans Squid — la règle <code>deny</code> doit impérativement précéder la règle <code>allow</code>.</li>
+                  <li>Tests validés : sites autorisés renvoient <code>TCP_TUNNEL/200</code>, sites bloqués renvoient <code>TCP_DENIED/403</code>. Journaux consultables via <code>tail -f /var/log/squid/access.log</code>.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Niveau 2 — Filtrage par blacklists (en cours)</div>
+                <ul>
+                  <li>Installation de <strong>SquidGuard</strong> comme module externe de réécriture d'URL branché à Squid.</li>
+                  <li>Téléchargement des <strong>blacklists de l'Université Toulouse Capitole</strong> — référence française gratuite et mise à jour régulièrement.</li>
+                  <li>3 catégories activées pour validation : <em>adult</em> (~4,6 millions de domaines), <em>gambling</em> et <em>drogue</em>.</li>
+                  <li>Compilation des fichiers en bases binaires <code>.db</code> pour accélérer la recherche : <code>sudo squidGuard -C all -d</code>.</li>
+                  <li>Diagnostic en cours : le filtrage HTTPS des sites blacklistés ne fonctionne pas comme attendu, des pistes sont explorées (propriété des fichiers compilés, redémarrage Squid, logs SquidGuard).</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Niveau 3 — Syslog déporté &amp; mises à jour auto (à venir)</div>
+                <ul>
+                  <li>Déploiement d'une seconde VM Ubuntu en DMZ jouant le rôle de <strong>serveur Syslog déporté</strong>.</li>
+                  <li>Configuration de <strong>Rsyslog</strong> sur le proxy pour envoyer les journaux vers le serveur Syslog.</li>
+                  <li>Mise en place d'une tâche <strong>Cron</strong> pour télécharger et compiler automatiquement les blacklists.</li>
+                </ul>
+              </div>
+              <div class="pr-details-section">
+                <div class="pr-details-title">// Apports pédagogiques</div>
+                <ul>
+                  <li>Comprendre la <strong>législation française</strong> sur la journalisation des accès Internet en entreprise.</li>
+                  <li>Maîtriser la chaîne <strong>Squid + SquidGuard + Blacklists</strong>, standard du filtrage web open source.</li>
+                  <li>Pratiquer la <strong>segmentation réseau</strong> par DMZ avec pfSense.</li>
+                  <li>Comprendre les <strong>limites du filtrage HTTPS</strong> (chiffrement de bout en bout, technique SSL Bump et ses problèmes de confidentialité).</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
           <div class="pr-desc">Trois activités pratiques menées en BTS SIO pour prendre en main GLPI, l'outil libre de gestion de parc informatique le plus utilisé en entreprise.</div>
           <div class="pr-techs"><span class="pr-tech">GLPI</span><span class="pr-tech">Inventaire</span><span class="pr-tech">Agent GLPI</span><span class="pr-tech">Ticketing</span><span class="pr-tech">VirtualBox</span></div>
           <div class="pr-toggle">
@@ -1140,8 +1202,8 @@ footer span { color: var(--lime); }
 
     <div class="res-intro">
       <div class="res-intro-text">
-      Retrouvez ici tous les <strong>documents associés à mon parcours</strong> : CV, rapports de stages, dossiers de projets et chartes graphiques. Chaque document est <strong>téléchargeable en PDF</strong>.
- </div>
+        Retrouve ici tous les <strong>documents associés à mon parcours</strong> : CV, rapports de stages, dossiers de projets et chartes graphiques. Chaque document peut être <strong>consulté en ligne</strong> ou <strong>téléchargé en PDF</strong>.
+      </div>
     </div>
 
     <!-- CV -->
@@ -1192,6 +1254,14 @@ footer span { color: var(--lime); }
           <div class="res-desc">Dossier complet du projet de supervision réseau sur 3 niveaux — Architecture, configuration et dashboards</div>
           <div class="res-btns">
             <a href="documents/Supervision_Zabbix_Grafana.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
+          </div>
+        </div>
+        <div class="res-card">
+          <div class="res-icon">🛡️</div>
+          <div class="res-title">Service Proxy — Journalisation &amp; filtrage</div>
+          <div class="res-desc">Dossier du projet proxy d'entreprise avec Squid &amp; SquidGuard — Journalisation, filtrage manuel et par blacklists</div>
+          <div class="res-btns">
+            <a href="documents/rapport_projet_proxy.pdf" download class="res-btn pink">⬇ Télécharger le PDF</a>
           </div>
         </div>
         <div class="res-card">
